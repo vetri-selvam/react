@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import ThemeContext from "./ThemeContext";
 import Dashboard from "./Components/Dashboard";
 import "./App.css";
@@ -10,10 +10,13 @@ function App() {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
   };
 
+  const contextValue = useMemo(() => ({ theme, toggleTheme }), [theme]);
+
   return (
     <>
       {/* 👇 This wraps your Dashboard (and everything inside it) with a context provider that sends down the theme and the toggleTheme function. */}
-      <ThemeContext.Provider value={{ theme, toggleTheme }}>
+
+      <ThemeContext.Provider value={contextValue}>
         <Dashboard />
       </ThemeContext.Provider>
     </>
